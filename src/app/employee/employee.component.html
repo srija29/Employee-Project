@@ -1,0 +1,30 @@
+<h3 style="text-align: center;">Employee Details</h3>
+<div class="container">
+    <div>
+        <div style="flex-direction:  row;">
+            <select class="select-dept" [(ngModel)]="selectedDepartment" (change)="getSelectedData($event)" placeholder="Select Department">
+                <option value="none">----------------Select Department---------------</option>
+                <option *ngFor="let dept of departments" [value]="dept"> {{dept}} </option>
+            </select>
+            <input class="search-bar" type="search" placeholder="Search by Name" (input)="searchByName($event)" /> <span><i class="fa fa-search search-icon"></i></span>
+        </div>
+        <span style="padding:  10px;" *ngIf="selectedDepartment!='none' && selectedDepartment "> <b>No of Employees in {{selectedDepartment}} :</b> {{count}} </span>
+        <table class="table table-striped border mt-1" style="padding:  10px;">
+            <thead>
+                <tr>
+                    <th class="tableHeader" [style.width]="col.width" *ngFor="let col of gridCols" (click)="sort(col.field, booleanValue)">{{col.header }} <i class="fa fa-sort" aria-hidden="true" *ngIf="col.sortableColumn"></i></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let candidate of filteredData">
+                    <td>{{candidate.id}}</td>
+                    <td>{{candidate.name}}</td>
+                    <td>{{candidate.department}}</td>
+                    <td>{{candidate.joining_date | date:'dd/MM/yyyy'}}</td>
+                </tr>
+            </tbody>
+        </table>
+        <button class="btn btn-danger" type="button" (click)="deleteDevelopemntCandidates()">Delete All Candidates from Development Department</button>
+        <button class="btn btn-success exp-btn" type="button" (click)="getCandidatesOfExp2yrs()">Get Candidates with Experience 2 years</button>
+    </div>
+</div>
